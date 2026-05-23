@@ -1,0 +1,41 @@
+{
+  "title" : "Corellian YT-1300f Light Freighter",
+  "brand" : "Corellian Engineering Corporation",
+  "categories" : [ "Stellarcraft", "Spacecraft", "Freighters", "Corellian Engineering", "Corellian YT-1300f light freighter" ],
+  "description" : "Seja bem-vindo ao maior negócio do setor galáctico. Apresentamos o YT-1300 light freighter: a nave mais rápida da galáxia, agora disponível para aquisição direta no maior marketplace interestelar do Brasil. Esta unidade pertenceu a apenas um proprietário anterior, um carismático contrabandista corelliano que garantiu que ela \"quase nunca precisou de manutenção\". As pequenas marcas de tiro de canhão laser e o sistema de ejeção de compartimento de carga levemente modificado são features, não bugs. A Millennium Falcon, uma YT-1300f modificada, completou a Rota Kessel em impressionantes 12 parsecs, uma marca que os engenheiros da Corellian Engineering Corporation ainda não conseguem explicar fisicamente, mas garantimos ser real. O casco é composto de ligas tibanianas de alta resistência com reparos feitos à mão pelos melhores mecânicos que Mos Eisley tem a oferecer. O sistema de propulsão inclui dois motores iônicos Girodyne SRB42 altamente modificados, que transformam uma nave de carga comum em algo que até os caças TIE têm dificuldade em alcançar. Não nos responsabilizamos por ordens de captura ativas, entreveros imperiais ou carga de origens duvidosas encontrada a bordo.",
+  "skus" : [ {
+    "name" : "Standard Configuration",
+    "current_price" : "R$ 4.799.990,00",
+    "old_price" : "R$ 5.999.990,00",
+    "available" : true
+  }, {
+    "name" : "Battle-Ready Configuration",
+    "current_price" : "",
+    "old_price" : "",
+    "available" : false
+  }, {
+    "name" : "Smuggler's Special (pre-owned, 1 careful owner)",
+    "current_price" : "R$ 3.499.990,00",
+    "old_price" : "",
+    "available" : true
+  } ],
+  "specifications" : [ [ "Hyperdrive Class", "0.5 (Modified)" ], [ "Crew Capacity", "2 (+ 1 Wookiee co-pilot recommended)" ], [ "Armament", "2x Quad laser cannons, 2x Blaster cannons" ], [ "Shield Generator", "Novaldex particle shield" ], [ "Kessel Run Record", "12 parsecs" ], [ "Previous Owner", "One careful Corellian smuggler" ], [ "Fuel Type", "Tibanna gas" ], [ "Planet of Origin", "Corellia" ], [ "Recyclable?", "Not recommended" ], [ "Carbon Footprint", "Classified" ], [ "Sublight Engines", "2x Girodyne SRB42 ion engines" ], [ "Sensor Range", "200,000 km" ], [ "Detention Block", "Not included" ], [ "Cloaking Device", "No" ], [ "Self-Destruct System", "Questionable condition" ], [ "Escape Pods", "2 (1 functional)" ], [ "Artificial Gravity", "Yes" ], [ "Cooling System", "Temperamental but operational" ] ],
+  "reviews" : [ {
+    "name" : "Leia O.",
+    "date" : "12/02/2026",
+    "score" : 5,
+    "text" : "Salvou a Rebelião. Compraria novamente. A nave chegou mais rápido do que o esperado; o tempo da Rota Kessel listado é preciso."
+  }, {
+    "name" : "Jabba H.",
+    "date" : "29/02/2026",
+    "score" : 2,
+    "text" : "O vendedor me deve dinheiro. O compartimento de carga estava vazio quando chegou. Não recomendo o proprietário anterior."
+  }, {
+    "name" : "Rey S.",
+    "date" : "08/04/2026",
+    "score" : 4,
+    "text" : "A nave se manteve inteira apesar das minhas preocupações iniciais. A Força estava comigo nesta compra. Pequeno problema na hidráulica ao pousar mas nada que um empurrão da Força não resolva."
+  } ],
+  "reviews_average_score" : 3.7,
+  "url" : "https://infosimples.com/vagas/desafio/stellarcraft/product.html"
+}

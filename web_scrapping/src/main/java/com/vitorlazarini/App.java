@@ -3,9 +3,10 @@ package com.vitorlazarini;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,7 +23,7 @@ public class App {
     public static void main(String[] args) {
 
         // Arquivo destino do JSON
-        File arquivo = new File("Web_Scrapping_infosimples.json");
+        File arquivo = new File("produto.json");
 
         // URL da página
         String url = "https://infosimples.com/vagas/desafio/stellarcraft/product.html";
@@ -51,12 +52,13 @@ public class App {
             System.out.println();
 
             // Categories
-            Elements categorieElement = document.select("meta[itemprop=name][content*=YT-1300f]");
+            Elements categorieElement = document.select(".breadcrumb-bar");
             String[] categories = new String[categorieElement.size()];
             for (int i = 0; i < categorieElement.size(); i++) {
-                categories[i] = categorieElement.get(i).attr("content");
+                categories[i] = categorieElement.text();
                 System.out.println("Categories: {" + categories[i] + " }");
             }
+            List<String> cleanCategories = Arrays.stream(categories).flatMap(categorie -> Arrays.stream(categorie.split(" › "))).distinct().collect(Collectors.toList());
             System.out.println();
 
             // Description
@@ -140,18 +142,19 @@ public class App {
             System.out.println("Average score: " + reviews_average_score);
 
             // Montando o JSON
-            Map<String, Object> dadosJson = new HashMap<>();
-            dadosJson.put("title:", title);
-            dadosJson.put("brand: ", brand);
-            dadosJson.put("categories: ", categories);
-            dadosJson.put("description: ", description);
-            dadosJson.put("skus: ", skus);
-            dadosJson.put("specifications: ", specifications);
-            dadosJson.put("reviews: ", reviews);
-            dadosJson.put("reviews_average_score: ", reviews_average_score);
+             Map<String, Object> dadosJson = new LinkedHashMap<>();
+            dadosJson.put("title", title);
+            dadosJson.put("brand", brand);
+            dadosJson.put("categories", cleanCategories);
+            dadosJson.put("description", description);
+            dadosJson.put("skus", skus);
+            dadosJson.put("specifications", specifications);
+            dadosJson.put("reviews", reviews);
+            dadosJson.put("reviews_average_score", reviews_average_score);
+            dadosJson.put("url", url);
 
             MAPPER.writerWithDefaultPrettyPrinter().writeValue(arquivo, dadosJson);
-
+            
         } catch (Exception e) {
             System.out.println("Erro ao fazer o scraping: " + e.getMessage());
             e.printStackTrace();
