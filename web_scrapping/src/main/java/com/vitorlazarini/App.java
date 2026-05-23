@@ -19,7 +19,9 @@ import com.vitorlazarini.entities.Sku;
 
 public class App {
 
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+    
+    private static final ObjectMapper MAPPER = new ObjectMapper(); 
+
     public static void main(String[] args) {
 
         // Arquivo destino do JSON
@@ -33,7 +35,6 @@ public class App {
         List<Reviews> reviews = new ArrayList<>();
 
         try {
-
             // URL da página com os dados + parse
             Document document = Jsoup.connect(url).get();
 
@@ -42,30 +43,25 @@ public class App {
             // Title
             Element titleElement = document.getElementById("product_title");
             String title = titleElement.text();
-            System.out.println("Title: " + title);
-            System.out.println();
 
             // Brand
             Element brandElement = document.selectFirst(".product-brand");
             String brand = brandElement.text();
-            System.out.println("Brand: " + brand);
-            System.out.println();
 
             // Categories
             Elements categorieElement = document.select(".breadcrumb-bar");
             String[] categories = new String[categorieElement.size()];
             for (int i = 0; i < categorieElement.size(); i++) {
                 categories[i] = categorieElement.text();
-                System.out.println("Categories: {" + categories[i] + " }");
             }
-            List<String> cleanCategories = Arrays.stream(categories).flatMap(categorie -> Arrays.stream(categorie.split(" › "))).distinct().collect(Collectors.toList());
-            System.out.println();
+            List<String> cleanCategories = Arrays.stream(categories)
+                    .flatMap(categorie -> Arrays.stream(categorie.split(" › ")))
+                    .distinct()
+                    .collect(Collectors.toList());
 
             // Description
             Element descriptionElement = document.getElementById("tab-description");
             String description = descriptionElement.text();
-            System.out.println("Description: " + description);
-            System.out.println();
 
             // SKU
             Elements products = document.select(".variant-btn");
@@ -78,26 +74,44 @@ public class App {
 
                 // Preço atual
                 Elements precoAtualElement = product.select(".vprice");
-                Float current_price = precoAtualElement != null ? (Float.parseFloat(precoAtualElement.text())) : null;
+                Float current_price = null;
+                
+                if (precoAtualElement != null) {
+                    String current_priceString = precoAtualElement.text();    
+                    String apenasNumerosEVirgula1 = current_priceString.replaceAll("[^0-9,]", ""); 
+
+                    if (!apenasNumerosEVirgula1.trim().isEmpty()) {
+                        String formatoAmericano1 = apenasNumerosEVirgula1.replace(",", ".");        
+                        current_price = Float.parseFloat(formatoAmericano1);
+                    }
+                } 
 
                 // Preço antigo
                 Elements precoAntigoElement = product.select(".vprice-old");
-                Float old_price = precoAntigoElement != null ? (Float.parseFloat(precoAntigoElement.text())) : null;
+                Float old_price = null;
+                
+                if (precoAntigoElement != null) {
+                    String old_priceString = precoAntigoElement.text();
+                    String apenasNumerosEVirgula2 = old_priceString.replaceAll("[^0-9,]", ""); 
+
+                    if (!apenasNumerosEVirgula2.trim().isEmpty()) {
+                        String formatoAmericano2 = apenasNumerosEVirgula2.replace(",", ".");
+                        old_price = Float.parseFloat(formatoAmericano2);
+                    }
+                }
 
                 // Verificar disponibilidade em estoque
                 Elements disponibilidadeElement = product.select(".vunavail");
                 Boolean available = disponibilidadeElement.isEmpty();
                 skus.add(new Sku(name, current_price, old_price, available));
             }
-            System.out.println(skus);
-            System.out.println();
 
             // Specifications
             Elements specificationElement = document.select("#tab-specs .specs-table tbody tr");
             String specifications[][] = new String[specificationElement.size()][2];
             int index = 0;
+            
             for (Element spec : specificationElement) {
-
                 String label = spec.select("td:first-child").text().trim();
                 String value = spec.select("td:nth-child(2)").text().trim();
 
@@ -107,42 +121,37 @@ public class App {
                     index++;
                 }
             }
-            System.out.println(Arrays.deepToString(specifications));
-            System.out.println();
 
             // Reviews
             Elements reviewElements = document.select("#tab-reviews .review-card");
 
             for (Element review : reviewElements) {
                 
-                //Nome
+                // Nome
                 Elements nameReview = review.select(".reviewer-name");
-                String reviewName = nameReview != null ?  (nameReview.text()) : null;
+                String reviewName = nameReview != null ? (nameReview.text()) : null;
 
-                //Data
+                // Data
                 Elements dateReview = review.select(".reviewer-date");
                 String reviewDate = dateReview != null ? (dateReview.text()) : null;
 
-                //Avaliação
+                // Avaliação
                 Elements scoreReview = review.select(".review-stars");
                 String reviewScores = (scoreReview.text().trim());
                 Integer score = (int) reviewScores.chars().filter(ch -> ch == '★').count();
 
-                //Texto da avaliação
+                // Texto da avaliação
                 Elements textReview = review.select(".review-text");
                 String reviewText = textReview != null ? (textReview.text()) : null;
 
-                reviews.add(new Reviews(reviewName.toString(), reviewDate.toString(), score , reviewText.toString()));
+                reviews.add(new Reviews(reviewName.toString(), reviewDate.toString(), score, reviewText.toString()));
             }
-            System.out.println(reviews);
 
             Element averageScore = document.selectFirst(".avg-score");
             Float reviews_average_score = Float.parseFloat(averageScore.text());
-            System.out.println();
-            System.out.println("Average score: " + reviews_average_score);
-
+            
             // Montando o JSON
-             Map<String, Object> dadosJson = new LinkedHashMap<>();
+            Map<String, Object> dadosJson = new LinkedHashMap<>();
             dadosJson.put("title", title);
             dadosJson.put("brand", brand);
             dadosJson.put("categories", cleanCategories);
@@ -155,7 +164,7 @@ public class App {
 
             MAPPER.writerWithDefaultPrettyPrinter().writeValue(arquivo, dadosJson);
             
-        } catch (Exception e) {
+        } catch (Exception e) { 
             System.out.println("Erro ao fazer o scraping: " + e.getMessage());
             e.printStackTrace();
         }
