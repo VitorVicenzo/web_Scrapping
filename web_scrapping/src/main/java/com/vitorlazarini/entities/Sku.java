@@ -3,8 +3,8 @@ package com.vitorlazarini.entities;
 public class Sku {
 
     private String name;
-    private String current_price;
-    private String old_price;
+    private Float current_price;
+    private Float old_price;
     private Boolean available;
 
     /*
@@ -20,7 +20,7 @@ public class Sku {
 
     }
 
-    public Sku(String name, String current_price, String old_price, Boolean available) {
+    public Sku(String name, Float current_price, Float old_price, Boolean available) {
         this.name = name;
         this.current_price = current_price;
         this.old_price = old_price;
@@ -35,19 +35,19 @@ public class Sku {
         this.name = name;
     }
 
-    public String getCurrent_price() {
+    public Float getCurrent_price() {
         return current_price;
     }
 
-    public void setCurrent_price(String current_price) {
+    public void setCurrent_price(Float current_price) {
         this.current_price = current_price;
     }
 
-    public String getOld_price() {
+    public Float getOld_price() {
         return old_price;
     }
 
-    public void setOld_price(String old_price) {
+    public void setOld_price(Float old_price) {
         this.old_price = old_price;
     }
 

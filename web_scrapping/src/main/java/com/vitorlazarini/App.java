@@ -78,11 +78,11 @@ public class App {
 
                 // Preço atual
                 Elements precoAtualElement = product.select(".vprice");
-                String current_price = precoAtualElement != null ? (precoAtualElement.text()) : null;
+                Float current_price = precoAtualElement != null ? (Float.parseFloat(precoAtualElement.text())) : null;
 
                 // Preço antigo
                 Elements precoAntigoElement = product.select(".vprice-old");
-                String old_price = precoAntigoElement != null ? (precoAntigoElement.text()) : null;
+                Float old_price = precoAntigoElement != null ? (Float.parseFloat(precoAntigoElement.text())) : null;
 
                 // Verificar disponibilidade em estoque
                 Elements disponibilidadeElement = product.select(".vunavail");
