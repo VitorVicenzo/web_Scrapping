@@ -7,7 +7,8 @@ public class Sku {
     private String old_price;
     private Boolean available;
 
-    /*NAME: Nome da variação
+    /*
+    NAME: Nome da variação
 
     CURRENT_PRICE: Preço atual do produto. Pode ser NULL se não estiver disponível.
 
